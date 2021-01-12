@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\MainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +15,5 @@ use App\Http\Controllers\TestController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/greeting', function () {
-    return 'Hello World';
-});
-
 Route::get('/dbtest', [TestController::class, 'dbtest']);
+Route::get('/', [MainController::class, 'index']);
