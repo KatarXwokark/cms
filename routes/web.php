@@ -16,4 +16,5 @@ use App\Http\Controllers\MainController;
 */
 
 Route::get('/dbtest', [TestController::class, 'dbtest']);
-Route::get('/', [MainController::class, 'index']);
+Route::any('/', array('uses' => 'App\Http\Controllers\MainController@index', 'as' => 'page.index'));
+Route::get('/create', array('uses' => 'App\Http\Controllers\MainController@create', 'as' => 'page.create'));

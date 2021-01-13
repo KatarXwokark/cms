@@ -2,7 +2,7 @@
     <head>
     </head>
     <body>
-        
+        <button type="button" onclick="redir()">New</button>
         <table>
             <?php
                 foreach($pages as $page){
@@ -19,4 +19,9 @@
             ?>
         </table>
     </body>
+    <script>
+        function redir(){
+            window.location="<?php echo route('page.create'); ?>";
+        }
+    </script>
 </html>
