@@ -37,4 +37,11 @@ class MainController extends Controller
         $templates = Template::getAllTemplates();
         return view('update', ['templates' => $templates, 'languages' => $languages]);
     }
+
+    public function update(){
+        $languages = Language::getAllLanguages();
+        $templates = Template::getAllTemplates();
+        $page = Page::getPage($_GET['id']);
+        return view('update', ['templates' => $templates, 'languages' => $languages, 'page' => $page]);
+    }
 }

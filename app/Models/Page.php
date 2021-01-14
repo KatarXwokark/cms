@@ -18,4 +18,8 @@ class Page{
         DB::commit();
         return DB::select('select * from Page where id_temp = ? and name = ?', [$id_temp, $name]);
     }
+
+    public static function getPage($id){
+        return DB::select('select * from Page where id = ?', [$id])[0];
+    }
 }
