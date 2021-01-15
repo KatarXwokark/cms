@@ -16,7 +16,7 @@ class MainController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        //echo var_dump($_GET);
+        echo var_dump($_GET);
         //echo var_dump($_POST);
         if(isset($_GET)){
             if(isset($_GET['create'])){
@@ -42,6 +42,9 @@ class MainController extends Controller
         $languages = Language::getAllLanguages();
         $templates = Template::getAllTemplates();
         $page = Page::getPage($_GET['id']);
-        return view('update', ['templates' => $templates, 'languages' => $languages, 'page' => $page]);
+        $components = Component::getComponents($_GET['id']);
+        $maximum = Component::maxComponentId()->maximum;
+        return view('update', ['templates' => $templates, 'languages' => $languages, 
+            'page' => $page, 'components' => $components, 'maximum' => $maximum]);
     }
 }
