@@ -2,7 +2,9 @@
     <head>
     </head>
     <body>
-        <form action="<?php echo route('page.index')?>" method="get" id="main_form">
+        <form action="<?php echo route('page.index')?>" method="post" id="main_form">
+            <?php echo csrf_field() ?>
+            <?php echo isset($page) ? '<input type="hidden" name="id" value=' . $page->id . '>' : '' ?>
             <label for="text">Name</label>
             <input type="text" name="name" <?php echo isset($page) ? "value='" . $page->name . "'" : '' ?>>
             <label for="text">Template name</label>
@@ -36,7 +38,7 @@
         </form>
     </body>
     <script>
-        var comp_count = <?php echo isset($maximum) ? $maximum : 0 ?>;
+        var comp_count = <?php echo isset($maximum) ? $maximum + 1 : 0 ?>;
         function addComponent(){
             var text = document.createElement("div");
             text.innerHTML = "<textarea name='comp[" + comp_count + "]'/>";

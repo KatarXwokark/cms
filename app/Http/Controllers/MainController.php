@@ -16,16 +16,26 @@ class MainController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        echo var_dump($_GET);
-        //echo var_dump($_POST);
-        if(isset($_GET)){
-            if(isset($_GET['create'])){
-                $id_page = Page::createNewPage($_GET['name'], $_GET['temp_name'], $_GET['language'], $_GET['url']);
-                foreach($_GET['comp'] as $component)
-                    Component::createNewComponent($id_page[0]->id, $component);
+        //echo var_dump($_GET);
+        echo var_dump($_POST);
+        if(isset($_POST)){
+            if(isset($_POST['create'])){
+                $id_page = Page::createNewPage($_POST['name'], $_POST['temp_name'], $_POST['language'], $_POST['url']);
+                if(isset($_POST['comp'])){
+                    foreach($_POST['comp'] as $component)
+                        Component::createNewComponent($id_page[0]->id, $component);
+                }
             }
-            else if(isset($_GET['update'])){
-                
+            else if(isset($_POST['update'])){
+                $id_page = Page::updatePage($_POST['id'], $_POST['name'], $_POST['temp_name'], $_POST['language'], $_POST['url']);
+                if(isset($_POST['comp'])){
+                    foreach($_POST['comp'] as $i => $component){
+                        if(Component::getComponent($i) !== array())
+                            Component::updateComponent($i, $component);
+                        else
+                            Component::createNewComponent($_POST['id'], $component);
+                    }
+                }
             }
         }
         $pages = Page::getAllPages();

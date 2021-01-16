@@ -22,4 +22,10 @@ class Page{
     public static function getPage($id){
         return DB::select('select * from Page where id = ?', [$id])[0];
     }
+
+    public static function updatePage($id, $name, $id_temp, $id_lang, $url){
+        DB::update('update Page 
+            set name = ?, id_temp = ?, id_lang = ?, url = ?, created_by = 3, last_edited = CURRENT_TIMESTAMP
+            where id = ?', [$name, $id_temp, $id_lang, $url, $id]);
+    }
 }

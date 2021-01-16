@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\MainController;
+use App\Models\Page;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,10 @@ use App\Http\Controllers\MainController;
 */
 
 Route::get('/dbtest', [TestController::class, 'dbtest']);
-Route::any('/', array('uses' => 'App\Http\Controllers\MainController@index', 'as' => 'page.index'));
-Route::get('/create', array('uses' => 'App\Http\Controllers\MainController@create', 'as' => 'page.create'));
-Route::get('/update', array('uses' => 'App\Http\Controllers\MainController@update', 'as' => 'page.update'));
+Route::any('/cms', array('uses' => 'App\Http\Controllers\MainController@index', 'as' => 'page.index'));
+Route::get('/cms/create', array('uses' => 'App\Http\Controllers\MainController@create', 'as' => 'page.create'));
+Route::get('/cms/update', array('uses' => 'App\Http\Controllers\MainController@update', 'as' => 'page.update'));
+$pages = Page::getAllPages();
+foreach($pages as $page)
+    Route::any($page->url, [TestController::class, 'dbtest']);
+
