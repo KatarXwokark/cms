@@ -2,6 +2,10 @@
     <head>
     </head>
     <body>
+        <div>
+            <a href="<?php echo route('page.index'); ?>">Pages</a>
+            <a href="<?php echo route('template.index'); ?>">Templates</a>
+        </div>
         <button type="button" onclick="redirCreate()">New</button>
         <table>
             <?php

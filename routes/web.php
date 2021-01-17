@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
-use App\Http\Controllers\MainController;
+use App\Http\Controllers\PageController;
 use App\Models\Page;
+use App\Models\Component;
+use App\Models\Template;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +18,20 @@ use App\Models\Page;
 |
 */
 
-Route::get('/dbtest', [TestController::class, 'dbtest']);
-Route::any('/cms', array('uses' => 'App\Http\Controllers\MainController@index', 'as' => 'page.index'));
-Route::get('/cms/create', array('uses' => 'App\Http\Controllers\MainController@create', 'as' => 'page.create'));
-Route::get('/cms/update', array('uses' => 'App\Http\Controllers\MainController@update', 'as' => 'page.update'));
-$pages = Page::getAllPages();
-foreach($pages as $page)
-    Route::any($page->url, [TestController::class, 'dbtest']);
+Route::any('/cms', array('uses' => 'App\Http\Controllers\PageController@index', 'as' => 'page.index'));
+Route::get('/cms/create', array('uses' => 'App\Http\Controllers\PageController@create', 'as' => 'page.create'));
+Route::get('/cms/update', array('uses' => 'App\Http\Controllers\PageController@update', 'as' => 'page.update'));
+
+Route::any('/cms/template', array('uses' => 'App\Http\Controllers\TemplateController@index', 'as' => 'template.index'));
+Route::get('/cms/template/create', array('uses' => 'App\Http\Controllers\TemplateController@create', 'as' => 'template.create'));
+Route::get('/cms/template/update', array('uses' => 'App\Http\Controllers\TemplateController@update', 'as' => 'template.update'));
+
+$pages = Page::getAllRawPages();
+foreach($pages as $page){
+    $components = Component::getComponents($page->id); 
+    $template = Template::getTemplate($page->id_temp);
+    Route::view($page->url, 'page', ['page' => $page, 'components' => $components, 'template' => $template]);
+}
+
+
 

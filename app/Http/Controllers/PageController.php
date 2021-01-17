@@ -8,7 +8,7 @@ use App\Models\Template;
 use App\Models\Language;
 use App\Models\Component;
 
-class MainController extends Controller
+class PageController extends Controller
 {
     /**
      * Show a list of all of the application's users.
@@ -39,13 +39,13 @@ class MainController extends Controller
             }
         }
         $pages = Page::getAllPages();
-        return view('index', ['pages' => $pages]);
+        return view('page/index', ['pages' => $pages]);
     }
 
     public function create(){
         $languages = Language::getAllLanguages();
         $templates = Template::getAllTemplates();
-        return view('update', ['templates' => $templates, 'languages' => $languages]);
+        return view('page/update', ['templates' => $templates, 'languages' => $languages]);
     }
 
     public function update(){
@@ -54,7 +54,7 @@ class MainController extends Controller
         $page = Page::getPage($_GET['id']);
         $components = Component::getComponents($_GET['id']);
         $maximum = Component::maxComponentId()->maximum;
-        return view('update', ['templates' => $templates, 'languages' => $languages, 
+        return view('page/update', ['templates' => $templates, 'languages' => $languages, 
             'page' => $page, 'components' => $components, 'maximum' => $maximum]);
     }
 }
