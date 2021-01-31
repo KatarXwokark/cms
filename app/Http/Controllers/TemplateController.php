@@ -22,6 +22,9 @@ class TemplateController extends Controller
             else if(isset($_POST['update'])){
                 Template::updateTemplate($_POST['id'], $_POST['name'], $_POST['footer'], $_POST['header']);
             }
+            else if(isset($_POST['delete'])){
+                Template::deleteTemplate($_POST['id']);
+            }
         }
         $templates = Template::getAllTemplates();
         return view('template/index', ['templates' => $templates]);

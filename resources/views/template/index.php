@@ -17,6 +17,13 @@
                             <form action=" . route('template.update') . ">
                                 <input type='hidden' name='id' value=" . $template->id . ">
                                 <input type='submit' value='edit'>
+                            </form>  
+                        </td>
+                        <td>                          
+                            <form action=" . route('template.index') . " method='post'>"
+                                . csrf_field() .
+                                "<input type='hidden' name='id' value=" . $template->id . ">
+                                <input type='submit' name='delete' value='X'>
                             </form>
                         </td>
                     </tr>";

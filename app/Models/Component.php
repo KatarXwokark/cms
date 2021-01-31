@@ -24,4 +24,8 @@ class Component{
         return DB::select('select max(id) as maximum from Component')[0];
     }
 
+    public static function deleteComponent($id){
+        DB::delete('delete from Component where id = ?', [$id]);
+    }
+
 }

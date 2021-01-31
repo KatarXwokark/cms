@@ -4,11 +4,13 @@
     </head>
     <body>
         <?php
-        echo $template->header . "\n";
+        if(isset($template))
+            echo $template->header . "\n";
         foreach($components as $component){
             echo $component->content . "\n";
         }
-        echo $template->footer . "\n";
+        if(isset($template))
+            echo $template->footer . "\n";
         ?>
     </body>
 </html>

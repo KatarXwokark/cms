@@ -36,7 +36,15 @@ class PageController extends Controller
                             Component::createNewComponent($_POST['id'], $component);
                     }
                 }
+                if(isset($_POST['comp_del'])){
+                    foreach($_POST['comp_del'] as $i => $to_delete){
+                        if($to_delete)
+                            Component::deleteComponent($i);
+                    }
+                }
             }
+            else if(isset($_POST['delete']))
+                Page::deletePage($_POST['id']);
         }
         $pages = Page::getAllPages();
         return view('page/index', ['pages' => $pages]);

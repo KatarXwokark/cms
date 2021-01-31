@@ -24,6 +24,13 @@
                                 <input type='submit' value='edit'>
                             </form>
                         </td>
+                        <td>
+                            <form action=" . route('page.index') . " method='post'>"
+                                . csrf_field() .
+                                "<input type='hidden' name='id' value=" . $page->id . ">
+                                <input type='submit' name='delete' value='x'>
+                            </form>
+                        </td>
                     </tr>";
                 }
             ?>
