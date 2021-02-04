@@ -10,21 +10,22 @@
         <button type="button" onclick="redirCreate()">New</button>
         <table>
             <?php
-                foreach($templates as $template){
+                foreach($categories as $category){
                     echo "<tr>
-                        <td>". $template->id ."</td>
-                        <td>". $template->name ."</td>
+                        <td>". $category->id ."</td>
+                        <td>". $category->id_cat ."</td>
+                        <td>". $category->name ."</td>
                         <td>
-                            <form action=" . route('template.update') . ">
-                                <input type='hidden' name='id' value=" . $template->id . ">
+                            <form action=" . route('product.update') . ">
+                                <input type='hidden' name='id' value=" . $category->id . ">
                                 <input type='submit' value='edit'>
-                            </form>  
+                            </form>
                         </td>
-                        <td>                          
-                            <form action=" . route('template.index') . " method='post'>"
+                        <td>
+                            <form action=" . route('product.index') . " method='post'>"
                                 . csrf_field() .
-                                "<input type='hidden' name='id' value=" . $template->id . ">
-                                <input type='submit' name='delete' value='X'>
+                                "<input type='hidden' name='id' value=" . $category->id . ">
+                                <input type='submit' name='delete' value='x'>
                             </form>
                         </td>
                     </tr>";
@@ -34,9 +35,7 @@
     </body>
     <script>
         function redirCreate(){
-            window.location="<?php echo route('template.create'); ?>";
+            window.location="<?php echo route('product.create'); ?>";
         }
     </script>
-
-    </body>
 </html>

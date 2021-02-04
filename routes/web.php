@@ -26,6 +26,10 @@ Route::any('/cms/template', array('uses' => 'App\Http\Controllers\TemplateContro
 Route::get('/cms/template/create', array('uses' => 'App\Http\Controllers\TemplateController@create', 'as' => 'template.create'));
 Route::get('/cms/template/update', array('uses' => 'App\Http\Controllers\TemplateController@update', 'as' => 'template.update'));
 
+Route::any('/cms/product', array('uses' => 'App\Http\Controllers\ProductController@index', 'as' => 'product.index'));
+Route::get('/cms/product/create', array('uses' => 'App\Http\Controllers\ProductController@create', 'as' => 'product.create'));
+Route::get('/cms/product/update', array('uses' => 'App\Http\Controllers\ProductController@update', 'as' => 'product.update'));
+
 $pages = Page::getAllRawPages();
 foreach($pages as $page){
     $components = Component::getComponents($page->id); 

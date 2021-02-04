@@ -7,6 +7,7 @@ use App\Models\Page;
 use App\Models\Template;
 use App\Models\Language;
 use App\Models\Component;
+use App\Models\Category;
 
 class PageController extends Controller
 {
@@ -59,10 +60,11 @@ class PageController extends Controller
     public function update(){
         $languages = Language::getAllLanguages();
         $templates = Template::getAllTemplates();
+        $categories = Category::getAllMainCategories();
         $page = Page::getPage($_GET['id']);
         $components = Component::getComponents($_GET['id']);
         $maximum = Component::maxComponentId()->maximum;
         return view('page/update', ['templates' => $templates, 'languages' => $languages, 
-            'page' => $page, 'components' => $components, 'maximum' => $maximum]);
+            'page' => $page, 'components' => $components, 'categories' => $categories, 'maximum' => $maximum]);
     }
 }

@@ -25,7 +25,7 @@
                 ?>
             </select>
             <label for="text">Language</label>
-            <select name="language" form="main_form" <?php echo isset($page) ? "value=" . $page->id_lang : '' ?>>
+            <select name="language" form="main_form">
                 <?php
                     foreach($languages as $language){
                         if(isset($page)){
@@ -46,10 +46,19 @@
                     if(isset($components)){
                         foreach($components as $component){ 
                             echo "<div><textarea name='comp[" . $component->id . "]'>" .
-                            $component->content . "</textarea>
-                            <label for='text'>delete?</label>
-                            <input type='checkbox' name='comp_del[" . $component->id . "]' value=" . 
-                            $component->id . "></div>";
+                                $component->content . "</textarea>
+                                <label for='text'>delete?</label>
+                                <input type='checkbox' name='comp_del[" . $component->id . "]' value=" . $component->id . ">
+                                <select name='comp_cat[" . $component->id . "]' form='main_form'>";
+                            echo '<option '; 
+                            echo is_null($component->id_cat) ? 'selected ' : '';  
+                            echo 'value=>no category</option>';
+                            foreach($categories as $category){
+                                echo '<option ';
+                                echo $component->id_cat == $category->id ? 'selected ' : '';
+                                echo 'value="' . $category->id . '">' . $category->name . '</option>';
+                            }
+                            echo "</select></div>";
                         }
                     }
                 ?>
