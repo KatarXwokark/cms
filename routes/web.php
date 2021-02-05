@@ -28,7 +28,9 @@ Route::get('/cms/template/update', array('uses' => 'App\Http\Controllers\Templat
 
 Route::any('/cms/product', array('uses' => 'App\Http\Controllers\ProductController@index', 'as' => 'product.index'));
 Route::get('/cms/product/create', array('uses' => 'App\Http\Controllers\ProductController@create', 'as' => 'product.create'));
-Route::get('/cms/product/update', array('uses' => 'App\Http\Controllers\ProductController@update', 'as' => 'product.update'));
+Route::any('/cms/product/update', array('uses' => 'App\Http\Controllers\ProductController@update', 'as' => 'product.update'));
+Route::get('/cms/product/update/create', array('uses' => 'App\Http\Controllers\ProductController@createOne', 'as' => 'product.createOne'));
+Route::get('/cms/product/update/update', array('uses' => 'App\Http\Controllers\ProductController@updateOne', 'as' => 'product.updateOne'));
 
 $pages = Page::getAllRawPages();
 foreach($pages as $page){

@@ -12,11 +12,11 @@
                 <?php
                     echo '<option '; 
                     echo !isset($edit_category) ? 'selected ' : '';  
-                    echo 'value=>no template</option>';
+                    echo 'value=>no major category</option>';
                     foreach($categories as $category){
                         if(isset($edit_category)){
                             echo '<option ';
-                            echo $edit_category->id_temp == $category->id ? 'selected ' : '';
+                            echo $edit_category->id_cat == $category->id ? 'selected ' : '';
                             echo 'value="' . $category->id . '">' . $category->name . '</option>';
                         }
                         else
@@ -26,5 +26,32 @@
             </select>
             <input type="submit" <?php echo isset($edit_category) ? "name='update'" : "name='create'" ?> value="Save">
         </form>
+        <form action="<?php echo route('product.createOne')?>" method="get">
+            <?php
+                if(isset($edit_category)){
+                    echo "<input type='hidden' name='id_cat' value=" . $edit_category->id . ">
+                    <input type='submit' name='create' value='New'>";
+                }
+            ?>
+        </from>
+        <table>
+            <?php
+                if(isset($products)){
+                    foreach($products as $product){
+                        echo "<tr>
+                            <td>". $product->id ."</td>
+                            <td>". $product->id_cat ."</td>
+                            <td>". $product->name ."</td>
+                            <td>". $product->description ."</td>
+                            <td>". $product->price ."</td>
+                            <td>". $product->created_by ."</td>
+                            <td>". $product->last_edited ."</td>
+                        </tr>";
+                    }
+                }
+                else
+                    echo "<p>no products in this category</p>";
+            ?>
+        </table>
     </body>
 </html>

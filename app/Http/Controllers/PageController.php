@@ -32,9 +32,9 @@ class PageController extends Controller
                 if(isset($_POST['comp'])){
                     foreach($_POST['comp'] as $i => $component){
                         if(Component::getComponent($i) !== array())
-                            Component::updateComponent($i, $component);
+                            Component::updateComponent($i, $_POST['comp_cat'][$i], $component);
                         else
-                            Component::createNewComponent($_POST['id'], $component);
+                            Component::createNewComponent($_POST['id'], $_POST['comp_cat'][$i], $component);
                     }
                 }
                 if(isset($_POST['comp_del'])){

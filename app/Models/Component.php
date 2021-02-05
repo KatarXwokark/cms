@@ -4,12 +4,14 @@ namespace App\Models;
 use Illuminate\Support\Facades\DB;
 
 class Component{
-    public static function createNewComponent($id_page, $content){
-        DB::insert('insert into Component(id_page, content) values(?, ?)', [$id_page, $content]);
+    public static function createNewComponent($id_page, $id_cat, $content){
+        DB::insert('insert into Component(id_page, id_cat, content) values(?, ?, ?)', 
+            [$id_page, $id_cat == "" ? null : $id_cat, $content]);
     }
 
-    public static function updateComponent($id, $content){
-        DB::update('update Component set content = ? where id = ?', [$content, $id]);
+    public static function updateComponent($id, $id_cat, $content){
+        DB::update('update Component set id_cat = ?, content = ? where id = ?', 
+            [$id_cat == "" ? null : $id_cat, $content, $id]);
     }
 
     public static function getComponents($id){

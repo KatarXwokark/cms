@@ -14,7 +14,7 @@ class Category{
     }
 
     public static function getCategory($id){
-        return DB::select('select * from Category where id = ?', [$id]);
+        return DB::select('select * from Category where id = ?', [$id])[0];
     }
 
     public static function createCategory($id_cat, $name){
