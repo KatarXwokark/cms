@@ -33,7 +33,7 @@
                     <input type='submit' name='create' value='New'>";
                 }
             ?>
-        </from>
+        </form>
         <table>
             <?php
                 if(isset($products)){
@@ -46,6 +46,21 @@
                             <td>". $product->price ."</td>
                             <td>". $product->created_by ."</td>
                             <td>". $product->last_edited ."</td>
+                            <td>
+                                <form action=" . route('product.updateOne') . ">
+                                    <input type='hidden' name='id' value=" . $product->id . ">
+                                    <input type='hidden' name='id_cat' value=" . $product->id_cat . ">
+                                    <input type='submit' value='edit'>
+                                </form>
+                            </td>
+                            <td>
+                                <form action=" . route('product.update') . " method='post'>"
+                                    . csrf_field() .
+                                    "<input type='hidden' name='id' value=" . $product->id . ">
+                                    <input type='hidden' name='id_cat' value=" . $product->id_cat . ">
+                                    <input type='submit' name='delete' value='x'>
+                                </form>
+                            </td>
                         </tr>";
                     }
                 }

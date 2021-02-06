@@ -49,7 +49,7 @@ class ProductController extends Controller
                 Product::deleteProduct($_POST['id']);
             }
         }
-        $categories = Category::getAllCategories();
+        $categories = Category::getAllPossibleMajorCategories(isset($_GET['id']) ? $_GET['id'] : $_POST['id_cat']);
         $category = Category::getCategory(isset($_GET['id']) ? $_GET['id'] : $_POST['id_cat']);
         $products = Product::getProducts(isset($_GET['id']) ? $_GET['id'] : $_POST['id_cat']);
         return view('product/update', ['edit_category' => $category, 'categories' => $categories, 'products' => $products]);

@@ -9,7 +9,7 @@ class Product{
     }
 
     public static function getProduct($id){
-        return DB::select('select * from Product where id = ?', [$id]);
+        return DB::select('select * from Product where id = ?', [$id])[0];
     }
 
     public static function createProduct($id_cat, $name, $description, $price){
