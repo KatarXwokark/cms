@@ -6,6 +6,7 @@ use App\Http\Controllers\PageController;
 use App\Models\Page;
 use App\Models\Component;
 use App\Models\Template;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,43 @@ use App\Models\Template;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// Route::get('/', function () {
+//     return view('cms.login');
+// });
+
+Route::get('/', [AuthenticatedSessionController::class, 'create'])
+                ->middleware('guest')
+                ->name('login');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+Route::get('/profile', function () {
+    return view('cms.profile');
+});
+
+Route::get('/templates', function () {
+    return view('cms.templates');
+});
+
+Route::get('/pages', function () {
+    return view('cms.pages');
+});
+
+Route::get('/products', function () {
+    return view('cms.products');
+});
+
+Route::get('/new-register', function () {
+    return view('cms.register');
+});
+
+Route::get('/new-login', function () {
+    return view('cms.login');
+});
+
 
 Route::any('/cms', array('uses' => 'App\Http\Controllers\PageController@index', 'as' => 'page.index'));
 Route::get('/cms/create', array('uses' => 'App\Http\Controllers\PageController@create', 'as' => 'page.create'));
@@ -34,4 +72,4 @@ foreach($pages as $page){
 }
 
 
-
+require __DIR__.'/auth.php';
