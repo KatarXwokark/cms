@@ -24,7 +24,11 @@ class Category{
     }
 
     public static function getCategory($id){
-        return DB::select('select * from Category where id = ?', [$id])[0];
+        $tmp = DB::select('select * from Category where id = ?', [$id]);
+        if($tmp !== array())
+            return $tmp[0];
+        else
+            return null;
     }
 
     public static function createCategory($id_cat, $name){
@@ -39,7 +43,7 @@ class Category{
         return DB::delete('delete from Category where id = ?', [$id]);
     }  
 
-    private static function getAllSubCategories($id){
+    public static function getAllSubCategories($id){
         $sub_categories = DB::select('select * from Category where id_cat = ?', [$id]);
         $deeper_sub_categories = array();
         foreach($sub_categories as $sub_category){

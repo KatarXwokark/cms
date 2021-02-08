@@ -2,7 +2,7 @@
     <head>
     </head>
     <body>
-        <form action="<?php echo route('page.index')?>" method="post" id="main_form">
+        <form action="<?php echo route('page.index')?>" method="post" enctype="multipart/form-data" id="main_form">
             <?php echo csrf_field() ?>
             <?php echo isset($page) ? '<input type="hidden" name="id" value=' . $page->id . '>' : '' ?>
             <label for="text">Name</label>
@@ -58,7 +58,8 @@
                                 echo $component->id_cat == $category->id ? 'selected ' : '';
                                 echo 'value="' . $category->id . '">' . $category->name . '</option>';
                             }
-                            echo "</select></div>";
+                            echo "</select>";
+                            echo "<input type='file' name='comp_img[" . $component->id . "]'></div>";
                         }
                     }
                 ?>

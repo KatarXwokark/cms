@@ -10,7 +10,11 @@ class Template{
     }
 
     public static function getTemplate($id){
-        return DB::select('select * from Template where id = ?', [$id])[0];
+        $tmp = DB::select('select * from Template where id = ?', [$id]);
+        if($tmp !== array())
+            return $tmp[0];
+        else
+            return null;
     }
 
     public static function createTemplate($name, $header, $footer){

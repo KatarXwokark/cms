@@ -17,8 +17,6 @@ class PageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        //echo var_dump($_GET);
-        echo var_dump($_POST);
         if(isset($_POST)){
             if(isset($_POST['create'])){
                 $id_page = Page::createNewPage($_POST['name'], $_POST['temp_name'], $_POST['language'], $_POST['url']);
@@ -31,8 +29,10 @@ class PageController extends Controller
                 $id_page = Page::updatePage($_POST['id'], $_POST['name'], $_POST['temp_name'], $_POST['language'], $_POST['url']);
                 if(isset($_POST['comp'])){
                     foreach($_POST['comp'] as $i => $component){
-                        if(Component::getComponent($i) !== array())
+                        if(Component::getComponent($i) !== array()){
                             Component::updateComponent($i, $_POST['comp_cat'][$i], $component);
+                            Component::addImage($i, $_FILES["comp_img"]["name"][$i], $_FILES["comp_img"]["tmp_name"][$i]);
+                        }
                         else
                             Component::createNewComponent($_POST['id'], $_POST['comp_cat'][$i], $component);
                     }

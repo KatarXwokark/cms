@@ -14,7 +14,6 @@ class TemplateController extends Controller
      */
     public function index()
     {
-        echo var_dump($_POST);
         if(isset($_POST)){
             if(isset($_POST['create'])){
                 Template::createTemplate($_POST['name'], $_POST['footer'], $_POST['header']);

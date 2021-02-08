@@ -34,13 +34,7 @@ Route::get('/cms/product/update/update', array('uses' => 'App\Http\Controllers\P
 
 $pages = Page::getAllRawPages();
 foreach($pages as $page){
-    $components = Component::getComponents($page->id); 
-    if($page->id_temp != null){
-        $template = Template::getTemplate($page->id_temp);
-        Route::view($page->url, 'page', ['page' => $page, 'components' => $components, 'template' => $template]);
-    }
-    else
-        Route::view($page->url, 'page', ['page' => $page, 'components' => $components]);
+    Route::view($page->url, 'page', App\Http\Controllers\DefaultController::index($page->id));
 }
 
 

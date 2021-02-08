@@ -15,7 +15,6 @@ class ProductController extends Controller
      */
     public function index()
     {
-        echo var_dump($_POST);
         if(isset($_POST)){
             if(isset($_POST['create'])){
                 Category::createCategory($_POST['id_cat'], $_POST['name']);
@@ -37,7 +36,6 @@ class ProductController extends Controller
     }
 
     public function update(){
-        echo var_dump($_POST);
         if(isset($_POST)){
             if(isset($_POST['create'])){
                 Product::createProduct($_POST['id_cat'], $_POST['name'], $_POST['description'], $_POST['price']);
