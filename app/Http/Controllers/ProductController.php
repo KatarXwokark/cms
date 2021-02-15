@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Template;
+use App\Models\Product;
 use Exception;
 
-class TemplateController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class TemplateController extends Controller
     public function index()
     {
         try {
-            $result = Template::all();
+            $result = Product::all();
         } catch (Exception $e) {
             $message = 'Error: ' . $e->getCode() . ', message:' . $e->getMessage();
             error_log($message);
@@ -51,14 +51,14 @@ class TemplateController extends Controller
     public function store(Request $request)
     {
         try {
-            if (!$request->has(['header', 'footer'])) {
+            if (!$request->has(['id_cat', 'name', 'description', 'price', 'created_by'])) {
                 return response()->json([
                     'status' => 500,
                     'message' => 'Incorrect input data'
                 ]);
             }
-            $input = $request->only(['header', 'footer']);
-            $result = new Template();
+            $input = $request->only(['id_cat', 'name', 'description', 'price', 'created_by']);
+            $result = new Product();
             $result->fill($input)->save();
         } catch (Exception $e) {
             $message = 'Error: ' . $e->getCode() . ', message:' . $e->getMessage();
@@ -81,10 +81,10 @@ class TemplateController extends Controller
      * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function show(Template $page, $id)
+    public function show(Product $page, $id)
     {
         try {
-            $result = Template::find($id);
+            $result = Product::find($id);
         } catch (Exception $e) {
             $message = 'Error: ' . $e->getCode() . ', message:' . $e->getMessage();
             error_log($message);
@@ -106,7 +106,7 @@ class TemplateController extends Controller
      * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function edit(Template $page)
+    public function edit(Product $page)
     {
         //
     }
@@ -118,11 +118,11 @@ class TemplateController extends Controller
      * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function update(Template $request, $id)
+    public function update(Request $request, $id)
     {
         try {
-            $post = Template::find($id);
-            $post->fill($request->only(['header', 'footer']))->save();
+            $result = Product::find($id);
+            $result->fill($request->only(['id_cat', 'name', 'description', 'price']))->save();
         } catch (Exception $e) {
             $message = 'Error: ' . $e->getCode() . ', message:' . $e->getMessage();
             error_log($message);
@@ -132,7 +132,8 @@ class TemplateController extends Controller
             ]);
         };
         return response()->json([
-            'status' => 200
+            'status' => 200,
+            'data' => $result
         ]);
     }
 
@@ -142,10 +143,10 @@ class TemplateController extends Controller
      * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Template $page, $id)
+    public function destroy(Product $page, $id)
     {
         try {
-            Template::destroy($id);
+            Product::destroy($id);
         } catch (Exception $e) {
             $message = 'Error: ' . $e->getCode() . ', message:' . $e->getMessage();
             error_log($message);

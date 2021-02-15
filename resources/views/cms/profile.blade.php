@@ -23,7 +23,7 @@
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"></li>
                     <li class="nav-item"><a class="nav-link active" href="profile"><i class="fas fa-user"></i><span>Profile</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="templates"><i class="fas fa-table"></i><span>Templates</span></a><a class="nav-link" href="products"><i class="fa fa-product-hunt"></i><span>Products</span></a><a class="nav-link" href="pages.html"><i class="fa fa-window-maximize"></i><span>Pages</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="categories"><i class="fa fa-list"></i><span>Categories</span></a><a class="nav-link" href="products"><i class="fa fa-product-hunt"></i><span>Products</span></a><a class="nav-link" href="components"><i class="fa fa-window-maximize"></i><span>Components</span></a><a class="nav-link" href="templates"><i class="fas fa-table"></i><span>Templates</span></a><a class="nav-link" href="pages"><i class="fa fa-newspaper-o"></i><span>Pages</span></a><a class="nav-link" href="languages"><i class="fa fa-language"></i><span>Languages</span></a><a class="nav-link" href="users"><i class="fa fa-users"></i><span>Users</span></a></li>
                     <li class="nav-item"></li>
                     <li class="nav-item"></li>
                 </ul>
@@ -36,8 +36,8 @@
                     <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
                         <ul class="nav navbar-nav flex-nowrap ml-auto">
                             <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown show no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="true" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">Valerie Luna</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg"></a>
-                                    <div class="dropdown-menu show shadow dropdown-menu-right animated--grow-in"><a class="dropdown-item" href="profile"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" id="reset-password" href="forgot-password"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Reset Password</a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">Valerie Luna</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg"></a>
+                                    <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in"><a class="dropdown-item active" href="profile"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" id="reset-password" href="forgot-password"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Reset Password</a>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" id="logout" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
                                 </div>

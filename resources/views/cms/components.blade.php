@@ -23,7 +23,7 @@
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"></li>
                     <li class="nav-item"><a class="nav-link" href="profile"><i class="fas fa-user"></i><span>Profile</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="categories"><i class="fa fa-list"></i><span>Categories</span></a><a class="nav-link" href="products"><i class="fa fa-product-hunt"></i><span>Products</span></a><a class="nav-link" href="components"><i class="fa fa-window-maximize"></i><span>Components</span></a><a class="nav-link active" href="templates"><i class="fas fa-table"></i><span>Templates</span></a><a class="nav-link" href="pages"><i class="fa fa-newspaper-o"></i><span>Pages</span></a><a class="nav-link" href="languages"><i class="fa fa-language"></i><span>Languages</span></a><a class="nav-link" href="users"><i class="fa fa-users"></i><span>Users</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="categories"><i class="fa fa-list"></i><span>Categories</span></a><a class="nav-link" href="products"><i class="fa fa-product-hunt"></i><span>Products</span></a><a class="nav-link active" href="components"><i class="fa fa-window-maximize"></i><span>Components</span></a><a class="nav-link" href="templates"><i class="fas fa-table"></i><span>Templates</span></a><a class="nav-link" href="pages"><i class="fa fa-newspaper-o"></i><span>Pages</span></a><a class="nav-link" href="languages"><i class="fa fa-language"></i><span>Languages</span></a><a class="nav-link" href="users"><i class="fa fa-users"></i><span>Users</span></a></li>
                     <li class="nav-item"></li>
                     <li class="nav-item"></li>
                 </ul>
@@ -46,14 +46,13 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Templates</h3>
+                    <h3 class="text-dark mb-4">Users</h3>
                     <div class="card shadow">
                         <div class="card-header py-3">
-                            <p class="text-primary m-0 font-weight-bold">Templates Info</p>
+                            <p class="text-primary m-0 font-weight-bold">Pages Info</p>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-
                                 <table class="table my-0" id="dataTable">
                                     <thead>
                                         <tr>
@@ -63,9 +62,8 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            @foreach($templates as $template)
-                                            <x-template-record :template="$template"/>
-                                            @endforeach
+                                            <td>Example</td>
+                                            <td class="text-center"><a class="text-center" href="#"><i class="fa fa-angle-double-right"></i></a></td>
                                         </tr>
                                         <tr></tr>
                                     </tbody>
@@ -78,23 +76,23 @@
                                 </table>
                             </div>
                             <div class="row">
-                                <div class="col text-right"><button class="btn btn-primary" data-toggle="modal" data-target="#new-template-modal" type="button">Add New</button></div>
+                                <div class="col text-right"><button class="btn btn-primary" data-toggle="modal" data-target="#new-page-modal" type="button">Modal Button</button></div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card"></div>
-                <div class="modal fade" role="dialog" tabindex="-1" id="new-template-modal">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add template</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>The content of your modal.</p>
-                            </div>
-                            <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
+            </div>
+            <div class="modal fade" role="dialog" tabindex="-1" id="new-page-modal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Modal Title</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         </div>
+                        <div class="modal-body">
+                            <p>The content of your modal.</p>
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
                     </div>
                 </div>
             </div>

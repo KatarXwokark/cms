@@ -3,73 +3,75 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\PageController;
-use App\Models\Page;
-use App\Models\Component;
-use App\Models\Template;
+use App\Http\Controllers\TemplateController;
+use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CmsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-// Route::get('/', function () {
-//     return view('cms.login');
-// });
 
 Route::get('/', [AuthenticatedSessionController::class, 'create'])
                 ->middleware('guest')
                 ->name('login');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('cms.dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
-Route::get('/profile', function () {
-    return view('cms.profile');
-});
-
-Route::get('/templates', function () {
-    return view('cms.templates');
-});
+Route::get('/profil', [CmsController::class, 'profil']);
+Route::get('/categories', [CmsController::class, 'categories']);
+Route::get('/products', [CmsController::class, 'products']);
+Route::get('/components', [CmsController::class, 'components']);
+Route::get('/templates', [CmsController::class, 'templates']);
+Route::get('/pages', [CmsController::class, 'pages']);
+Route::get('/languages', [CmsController::class, 'languages']);
+Route::get('/users', [CmsController::class, 'users']);
 
 Route::get('/pages', function () {
     return view('cms.pages');
+});
+
+Route::get('/profile', function () {
+    return view('cms.profile');
 });
 
 Route::get('/products', function () {
     return view('cms.products');
 });
 
-Route::get('/new-register', function () {
-    return view('cms.register');
-});
+// Route::get('/templates', function () {
+//     return view('cms.templates');
+// });
 
-Route::get('/new-login', function () {
-    return view('cms.login');
-});
+Route::get('/api/page', [PageController::class, 'index']); 
+Route::post('/api/page', [PageController::class, 'store']); 
+Route::get('/api/page/{id}', [PageController::class, 'show']); 
+Route::put('/api/page/{id}', [PageController::class, 'update']); 
+Route::delete('/api/page/{id}', [PageController::class, 'destroy']);
 
+Route::get('/api/template', [TemplateController::class, 'index']); 
+Route::post('/api/template', [TemplateController::class, 'store']); 
+Route::get('/api/template/{id}', [TemplateController::class, 'show']); 
+Route::put('/api/template/{id}', [TemplateController::class, 'update']); 
+Route::delete('/api/template/{id}', [TemplateController::class, 'destroy']);
 
-Route::any('/cms', array('uses' => 'App\Http\Controllers\PageController@index', 'as' => 'page.index'));
-Route::get('/cms/create', array('uses' => 'App\Http\Controllers\PageController@create', 'as' => 'page.create'));
-Route::get('/cms/update', array('uses' => 'App\Http\Controllers\PageController@update', 'as' => 'page.update'));
+Route::get('/api/language', [LanguageController::class, 'index']); 
+Route::post('/api/language', [LanguageController::class, 'store']); 
+Route::get('/api/language/{id}', [LanguageController::class, 'show']); 
+Route::put('/api/language/{id}', [LanguageController::class, 'update']); 
+Route::delete('/api/language/{id}', [LanguageController::class, 'destroy']);
 
-Route::any('/cms/template', array('uses' => 'App\Http\Controllers\TemplateController@index', 'as' => 'template.index'));
-Route::get('/cms/template/create', array('uses' => 'App\Http\Controllers\TemplateController@create', 'as' => 'template.create'));
-Route::get('/cms/template/update', array('uses' => 'App\Http\Controllers\TemplateController@update', 'as' => 'template.update'));
+Route::get('/api/product', [ProductController::class, 'index']); 
+Route::post('/api/product', [ProductController::class, 'store']); 
+Route::get('/api/product/{id}', [ProductController::class, 'show']); 
+Route::put('/api/product/{id}', [ProductController::class, 'update']); 
+Route::delete('/api/product/{id}', [ProductController::class, 'destroy']);
 
-$pages = Page::getAllRawPages();
-foreach($pages as $page){
-    $components = Component::getComponents($page->id); 
-    $template = Template::getTemplate($page->id_temp);
-    Route::view($page->url, 'page', ['page' => $page, 'components' => $components, 'template' => $template]);
-}
+Route::get('/api/category', [CategoryController::class, 'index']); 
+Route::post('/api/category', [CategoryController::class, 'store']); 
+Route::get('/api/category/{id}', [CategoryController::class, 'show']); 
+Route::put('/api/category/{id}', [CategoryController::class, 'update']); 
+Route::delete('/api/category/{id}', [CategoryController::class, 'destroy']);
 
 
 require __DIR__.'/auth.php';
