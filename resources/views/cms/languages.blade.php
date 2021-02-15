@@ -54,6 +54,7 @@
                         <div class="card-body">
                             <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
                                 <table class="table my-0" id="dataTable">
+                                @if (count($languages) > 0)
                                     <thead>
                                         <tr>
                                             <th>Name</th>
@@ -62,8 +63,10 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Example</td>
-                                            <td class="text-center"><a class="text-center" href="#"><i class="fa fa-angle-double-right"></i></a></td>
+
+                                            @foreach($languages as $language)
+                                            <x-language-record :language="$language" />
+                                            @endforeach
                                         </tr>
                                         <tr></tr>
                                     </tbody>
@@ -73,6 +76,13 @@
                                             <td></td>
                                         </tr>
                                     </tfoot>
+                                    @else
+                                    <thead>
+                                        <tr>
+                                            <th>Empty</th>
+                                        </tr>
+                                    </thead>
+                                    @endif
                                 </table>
                             </div>
                             <div class="row">

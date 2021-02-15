@@ -55,27 +55,35 @@
                             <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
                                 <table class="table my-0" id="dataTable">
                                     <thead>
+                                    @if (count($products) > 0)
+                                    <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Last Modification</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Example</td>
-                                            <td>tmp</td>
-                                            <td class="text-center"><a class="text-center" href="#"><i class="fa fa-angle-double-right"></i></a></td>
+
+                                            @foreach($products as $product)
+                                            <x-product-record :product="$product" />
+                                            @endforeach
                                         </tr>
                                         <tr></tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <td><strong>Name</strong></td>
-                                            <td><strong>Last Modification</strong></td>
                                             <td></td>
                                         </tr>
                                     </tfoot>
+                                    @else
+                                    <thead>
+                                        <tr>
+                                            <th>Empty</th>
+                                        </tr>
+                                    </thead>
+                                    @endif
                                 </table>
                             </div>
                             <div class="row">

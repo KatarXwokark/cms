@@ -7,6 +7,7 @@ use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ComponentController;
 use App\Http\Controllers\CmsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
@@ -18,7 +19,7 @@ Route::get('/', [AuthenticatedSessionController::class, 'create'])
 //     return view('cms.dashboard');
 // })->middleware(['auth'])->name('dashboard');
 
-Route::get('/profil', [CmsController::class, 'profil']);
+Route::get('/profile', [CmsController::class, 'profile']);
 Route::get('/categories', [CmsController::class, 'categories']);
 Route::get('/products', [CmsController::class, 'products']);
 Route::get('/components', [CmsController::class, 'components']);
@@ -26,22 +27,6 @@ Route::get('/templates', [CmsController::class, 'templates']);
 Route::get('/pages', [CmsController::class, 'pages']);
 Route::get('/languages', [CmsController::class, 'languages']);
 Route::get('/users', [CmsController::class, 'users']);
-
-Route::get('/pages', function () {
-    return view('cms.pages');
-});
-
-Route::get('/profile', function () {
-    return view('cms.profile');
-});
-
-Route::get('/products', function () {
-    return view('cms.products');
-});
-
-// Route::get('/templates', function () {
-//     return view('cms.templates');
-// });
 
 Route::get('/api/page', [PageController::class, 'index']); 
 Route::post('/api/page', [PageController::class, 'store']); 
@@ -72,6 +57,12 @@ Route::post('/api/category', [CategoryController::class, 'store']);
 Route::get('/api/category/{id}', [CategoryController::class, 'show']); 
 Route::put('/api/category/{id}', [CategoryController::class, 'update']); 
 Route::delete('/api/category/{id}', [CategoryController::class, 'destroy']);
+
+Route::get('/api/component', [ComponentController::class, 'index']); 
+Route::post('/api/component', [ComponentController::class, 'store']); 
+Route::get('/api/component/{id}', [ComponentController::class, 'show']); 
+Route::put('/api/component/{id}', [ComponentController::class, 'update']); 
+Route::delete('/api/component/{id}', [ComponentController::class, 'destroy']);
 
 
 require __DIR__.'/auth.php';

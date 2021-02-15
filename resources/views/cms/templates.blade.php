@@ -55,6 +55,7 @@
                             <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
 
                                 <table class="table my-0" id="dataTable">
+                                @if (count($templates) > 0)
                                     <thead>
                                         <tr>
                                             <th>Name</th>
@@ -63,8 +64,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
+
                                             @foreach($templates as $template)
-                                            <x-template-record :template="$template"/>
+                                            <x-template-record :template="$template" />
                                             @endforeach
                                         </tr>
                                         <tr></tr>
@@ -75,6 +77,13 @@
                                             <td></td>
                                         </tr>
                                     </tfoot>
+                                    @else
+                                    <thead>
+                                        <tr>
+                                            <th>Empty</th>
+                                        </tr>
+                                    </thead>
+                                    @endif
                                 </table>
                             </div>
                             <div class="row">
