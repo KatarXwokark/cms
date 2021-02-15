@@ -1,19 +1,28 @@
 <html>
     <head>
-        <link rel="stylesheet" href="\..\resources\sceditor\minified\themes\default.min.css" />
-        <script src="\..\resources\sceditor\minified\sceditor.min.js"></script>
-        <script src="\..\resources\sceditor\minified\formats\bbcode.min.js"></script>
+        <link rel="stylesheet" href="\cms\resources\sceditor\minified\themes\default.min.css" />
+        <script type='text/javascript' src="\cms\resources\sceditor\minified\sceditor.min.js"></script>
+        <script src="\cms\resources\sceditor\minified\formats\xhtml.js"></script>
         <script>
-        // Replace the textarea #example with SCEditor
-        var textarea = document.getElementById('example');
-        sceditor.create(textarea, {
-            format: 'html',
-            style: 'minified/themes/content/default.min.css'
-        });
+            function composeWYSIWYG(){
+                // Replace the textarea #example with SCEditor
+                var textareas = document.getElementsByClassName('content');
+                for(var i=0; i<textareas.length; i++) {
+                    sceditor.create(textareas[i], {
+                        format: 'xhtml',
+                        style: '/cms/resources/sceditor/minified/themes/content/default.min.css',
+                        toolbar: 'bold,italic,underline|strike,subscript,superscript|left,center,right,justify|font,size,color|pastetext,bulletlist,orderedlist|source',
+                        plugins: 'undo'
+                    });
+                }
+                textareas = document.getElementsByTagName('textarea');
+                for(var i=0; i<textareas.length; i++) {
+                    textareas[i].classList.remove("content");
+                }
+            }
         </script>
     </head>
     <body>
-        <textarea id='example'></textarea>
         <form action="<?php echo route('page.index')?>" method="post" enctype="multipart/form-data" id="main_form">
             <?php echo csrf_field() ?>
             <?php echo isset($page) ? '<input type="hidden" name="id" value=' . $page->id . '>' : '' ?>
@@ -57,7 +66,7 @@
                 <?php
                     if(isset($components)){
                         foreach($components as $component){ 
-                            echo "<div><textarea name='comp[" . $component->id . "]'>" .
+                            echo "<div><textarea class='content' cols=200 rows=40 name='comp[" . $component->id . "]'>" .
                                 $component->content . "</textarea>
                                 <label for='text'>delete?</label>
                                 <input type='checkbox' name='comp_del[" . $component->id . "]' value=" . $component->id . ">
@@ -80,13 +89,15 @@
         </form>
     </body>
     <script>
+        composeWYSIWYG();
         var comp_count = <?php echo isset($maximum) ? $maximum + 1 : 0 ?>;
         function addComponent(){
             var text = document.createElement("div");
-            text.innerHTML = "<textarea name='comp[" + comp_count + "]'/>";
+            text.innerHTML = "<textarea class='content' cols=200 rows=40 name='comp[" + comp_count + "]'/>";
             var element = document.getElementById("components");
             element.appendChild(text);
             comp_count++;
+            composeWYSIWYG();
         }
     </script>
 </html>

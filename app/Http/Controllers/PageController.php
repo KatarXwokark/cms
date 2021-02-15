@@ -34,7 +34,7 @@ class PageController extends Controller
                             Component::addImage($i, $_FILES["comp_img"]["name"][$i], $_FILES["comp_img"]["tmp_name"][$i]);
                         }
                         else
-                            Component::createNewComponent($_POST['id'], $_POST['comp_cat'][$i], $component);
+                            Component::createNewComponent($_POST['id'], null, $component);
                     }
                 }
                 if(isset($_POST['comp_del'])){
