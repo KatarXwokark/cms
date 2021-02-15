@@ -86,7 +86,7 @@
                                 </table>
                             </div>
                             <div class="row">
-                                <div class="col text-right"><button class="btn btn-primary" data-toggle="modal" data-target="#new-page-modal" type="button">Modal Button</button></div>
+                                <div class="col text-right"><button class="btn btn-primary" data-toggle="modal" data-target="#new-page-modal" type="button">Add New</button></div>
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Modal Title</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title">New Page</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         </div>
                         <div class="modal-body">
                             <p>The content of your modal.</p>

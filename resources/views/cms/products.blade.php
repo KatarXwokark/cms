@@ -55,13 +55,14 @@
                             <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
                                 <table class="table my-0" id="dataTable">
                                     <thead>
-                                    @if (count($products) > 0)
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
+                                        @if (count($products) > 0)
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
                                     <tbody>
                                         <tr>
 
@@ -74,6 +75,7 @@
                                     <tfoot>
                                         <tr>
                                             <td><strong>Name</strong></td>
+                                            <td></td>
                                             <td></td>
                                         </tr>
                                     </tfoot>
@@ -98,12 +100,27 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Modal Title</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title">New Product</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         </div>
-                        <div class="modal-body">
-                            <p>The content of your modal.</p>
-                        </div>
-                        <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
+                        <form class="user" method="POST" action="/api/product">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <select class="custom-select" name="id_cat" id="id_cat">
+                                        <option value="" selected></option>
+                                        @foreach($categories as $category)
+                                        <option name="id_cat" value={{$category->id}}>{{$category->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group"><input class="form-control form-control-user" type="text" id="name" aria-describedby="nameHelper" placeholder="Enter product name..." name="name"></div>
+                                <div class="form-group"><input class="form-control form-control-user" type="text" id="description" aria-describedby="nameHelper" placeholder="Enter product description..." name="description"></div>
+                                <div class="form-group"><input class="form-control form-control-user" type="number" id="price" aria-describedby="nameHelper" placeholder="Enter product price..." name="price"></div>
+                                <div class="form-group d-none"><input class="" type="text" id="created_by" aria-describedby="nameHelper" placeholder="" name="created_by" value="{{$user}}"></div>
+
+                            </div>
+                            <div class="modal-footer"><button class="btn btn-primary" type="submit">Add</button></div>
+                        </form>
                     </div>
                 </div>
             </div>

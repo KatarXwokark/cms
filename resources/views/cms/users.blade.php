@@ -85,26 +85,10 @@
                                     @endif
                                 </table>
                             </div>
-                            <div class="row">
-                                <div class="col text-right"><button class="btn btn-primary" data-toggle="modal" data-target="#new-page-modal" type="button">Modal Button</button></div>
-                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="card"></div>
-            </div>
-            <div class="modal fade" role="dialog" tabindex="-1" id="new-page-modal">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Modal Title</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>The content of your modal.</p>
-                        </div>
-                        <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
-                    </div>
-                </div>
             </div>
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">

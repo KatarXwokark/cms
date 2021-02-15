@@ -12,6 +12,7 @@ use App\Models\Template;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Auth;
 
 class CmsController extends Controller
 {
@@ -32,7 +33,8 @@ class CmsController extends Controller
 
     public function products()
     {
-        return view('cms.products', ['products' => Product::all()]);
+        
+        return view('cms.products', ['products' => Product::all(), 'categories' => Category::all(), 'user' => Auth::id()]);
     }
 
     public function components()

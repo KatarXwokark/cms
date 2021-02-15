@@ -59,11 +59,11 @@
                                         <tr>
                                             <th>Name</th>
                                             <th></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-
                                             @foreach($categories as $category)
                                             <x-category-record :category="$category" />
                                             @endforeach
@@ -73,6 +73,7 @@
                                     <tfoot>
                                         <tr>
                                             <td><strong>Name</strong></td>
+                                            <td></td>
                                             <td></td>
                                         </tr>
                                     </tfoot>
@@ -86,7 +87,7 @@
                                 </table>
                             </div>
                             <div class="row">
-                                <div class="col text-right"><button class="btn btn-primary" data-toggle="modal" data-target="#new-page-modal" type="button">Modal Button</button></div>
+                                <div class="col text-right"><button class="btn btn-primary" data-toggle="modal" data-target="#new-page-modal" type="button">Add New</button></div>
                             </div>
                         </div>
                     </div>
@@ -97,12 +98,21 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Modal Title</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title">New Category</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         </div>
-                        <div class="modal-body">
-                            <p>The content of your modal.</p>
-                        </div>
-                        <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
+                        <form class="user" method="POST" action="/api/category">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="form-group"><input class="form-control form-control-user" type="text" id="name" aria-describedby="nameHelper" placeholder="Enter category name..." name="name"></div>
+                                <select class="custom-select" id="id_cat">
+                                    <option value="" selected></option>
+                                    @foreach($categories as $category)
+                                    <option value={{$category->id}}>{{$category->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="modal-footer"><button class="btn btn-primary" type="submit">Add</button></div>
+                        </form>
                     </div>
                 </div>
             </div>
