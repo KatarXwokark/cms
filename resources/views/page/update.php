@@ -1,7 +1,19 @@
 <html>
     <head>
+        <link rel="stylesheet" href="\..\resources\sceditor\minified\themes\default.min.css" />
+        <script src="\..\resources\sceditor\minified\sceditor.min.js"></script>
+        <script src="\..\resources\sceditor\minified\formats\bbcode.min.js"></script>
+        <script>
+        // Replace the textarea #example with SCEditor
+        var textarea = document.getElementById('example');
+        sceditor.create(textarea, {
+            format: 'html',
+            style: 'minified/themes/content/default.min.css'
+        });
+        </script>
     </head>
     <body>
+        <textarea id='example'></textarea>
         <form action="<?php echo route('page.index')?>" method="post" enctype="multipart/form-data" id="main_form">
             <?php echo csrf_field() ?>
             <?php echo isset($page) ? '<input type="hidden" name="id" value=' . $page->id . '>' : '' ?>
