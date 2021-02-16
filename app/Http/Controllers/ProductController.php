@@ -46,6 +46,9 @@ class ProductController extends Controller
             else if(isset($_POST['delete'])){
                 Product::deleteProduct($_POST['id']);
             }
+            else if(isset($_FILES['csv'])){
+                self::importProducts($_POST['id_cat'], $_FILES['csv']);
+            }
         }
         $categories = Category::getAllPossibleMajorCategories(isset($_GET['id']) ? $_GET['id'] : $_POST['id_cat']);
         $category = Category::getCategory(isset($_GET['id']) ? $_GET['id'] : $_POST['id_cat']);
@@ -60,5 +63,19 @@ class ProductController extends Controller
     public function updateOne(){
         $product = Product::getProduct($_GET['id']);
         return view('product/updateOne', ['id_cat' => $_GET['id_cat'], 'product' => $product]);
+    }
+
+    private function importProducts($id_cat, $file){
+        if($file['error'] != 0)
+            return;
+        $myfile = fopen($file['tmp_name'], "r");
+        if($myfile){
+            while(($line = fgetcsv($myfile, 1000, ";")) !== FALSE) {
+                Product::createProduct($id_cat, $line[0], $line[1], $line[2]);
+            }
+        }
+        else
+            return;
+        fclose($myfile);
     }
 }

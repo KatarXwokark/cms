@@ -34,6 +34,13 @@
                 }
             ?>
         </form>
+        <form action="<?php echo route('product.update')?>" method="post" enctype="multipart/form-data"  id="main_form">
+            <?php echo csrf_field() ?>
+            <input type='hidden' name='id_cat' value="<?php echo $edit_category->id ?> ">
+            <label for="text">Import product from csv</label>
+            <input type='file' name='csv'>
+            <input type="submit" name="import" value="Import">
+        </form>
         <table>
             <?php
                 if(isset($products)){
