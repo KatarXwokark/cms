@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Template;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class TemplateController extends Controller
 {
@@ -51,13 +52,13 @@ class TemplateController extends Controller
     public function store(Request $request)
     {
         try {
-            if (!$request->has(['header', 'footer'])) {
+            if (!$request->has(['name'])) {
                 return response()->json([
                     'status' => 500,
                     'message' => 'Incorrect input data'
                 ]);
             }
-            $input = $request->only(['header', 'footer']);
+            $input = $request->only(['name']);
             $result = new Template();
             $result->fill($input)->save();
         } catch (Exception $e) {
@@ -69,10 +70,12 @@ class TemplateController extends Controller
             ]);
         };
 
-        return response()->json([
-            'status' => 200,
-            'data' => $result
-        ]);
+        // return response()->json([
+        //     'status' => 200,
+        //     'data' => $result
+        // ]);
+        //return redirect()->route('template.edit', ['id' => $result->id]);
+        back();
     }
 
     /**
@@ -106,9 +109,10 @@ class TemplateController extends Controller
      * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function edit(Template $page)
+    public function edit($id)
     {
-        //
+        $template = Template::find($id);
+        return view('cms.template-edit', ['template' => $template, 'user' => Auth::user()]);
     }
 
     /**
@@ -118,11 +122,14 @@ class TemplateController extends Controller
      * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function update(Template $request, $id)
+    public function update(Request $request, $id)
     {
         try {
             $post = Template::find($id);
-            $post->fill($request->only(['header', 'footer']))->save();
+
+            error_log($request);
+
+            $post->fill($request->only(['name', 'content']))->save();
         } catch (Exception $e) {
             $message = 'Error: ' . $e->getCode() . ', message:' . $e->getMessage();
             error_log($message);
@@ -154,8 +161,9 @@ class TemplateController extends Controller
                 'message' => $message
             ]);
         };
-        return response()->json([
-            'status' => 200
-        ]);
+        // return response()->json([
+        //     'status' => 200
+        // ]);
+        return back()->withInput();
     }
 }

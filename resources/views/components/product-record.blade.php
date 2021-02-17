@@ -1,6 +1,6 @@
 <tr>
     <td>{{$product->name}}</td>
-    <td class="text-right"><a class="text-center" href="/api/product/{{$product->id}}"><i class="fa fa-angle-double-right"></i></a></td>
+    <td class="text-right"><a class="text-center" href="{{route('product.edit', ['id' => $product->id])}}"><i class="fa fa-angle-double-right"></i></a></td>
     <td class="text-center">
         <form method="POST" action="/api/product/{{$product->id}}">
             {{ csrf_field() }}

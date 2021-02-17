@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
@@ -57,7 +58,7 @@ class CategoryController extends Controller
                     'message' => 'Incorrect input data'
                 ]);
             }
-            $input = $request->only(['name', 'id_cat']);
+            $input = $request->only(['name']);
             $result = new Category();
             $result->fill($input)->save();
         } catch (Exception $e) {
@@ -69,10 +70,12 @@ class CategoryController extends Controller
             ]);
         };
 
-        return response()->json([
-            'status' => 200,
-            'data' => $result
-        ]);
+        // return response()->json([
+        //     'status' => 200,
+        //     'data' => $result
+        // ]);
+        // return redirect()->route('category.edit', ['id' => $result->id]);
+        return back();
     }
 
     /**
@@ -106,9 +109,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $page)
+    public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        return view('cms.category-edit', ['category' => $category, 'user' => Auth::user()]);  
     }
 
     /**
@@ -122,7 +126,7 @@ class CategoryController extends Controller
     {
         try {
             $result = Category::find($id);
-            $result->fill($request->only(['name', 'id_cat']))->save();
+            $result->fill($request->only(['name']))->save();
         } catch (Exception $e) {
             $message = 'Error: ' . $e->getCode() . ', message:' . $e->getMessage();
             error_log($message);
@@ -131,10 +135,11 @@ class CategoryController extends Controller
                 'message' => $message
             ]);
         };
-        return response()->json([
-            'status' => 200,
-            'data' => $result
-        ]);
+        // return response()->json([
+        //     'status' => 200,
+        //     'data' => $result
+        // ]);
+        return back();
     }
 
     /**
@@ -150,13 +155,15 @@ class CategoryController extends Controller
         } catch (Exception $e) {
             $message = 'Error: ' . $e->getCode() . ', message:' . $e->getMessage();
             error_log($message);
-            return response()->json([
-                'status' => 500,
-                'message' => $message
-            ]);
+            // return response()->json([
+            //     'status' => 500,
+            //     'message' => $message
+            // ]);
+            return back();
         };
-        return response()->json([
-            'status' => 200
-        ]);
+        // return response()->json([
+        //     'status' => 200
+        // ]);
+        return back()->withInput();
     }
 }

@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Table - cms</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome-all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/fonts/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome5-overrides.min.css') }}">
 </head>
 
 <body id="page-top">
@@ -22,8 +22,16 @@
                 <hr class="sidebar-divider my-0">
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"></li>
-                    <li class="nav-item"><a class="nav-link" href="profile"><i class="fas fa-user"></i><span>Profile</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href="categories"><i class="fa fa-list"></i><span>Categories</span></a><a class="nav-link" href="products"><i class="fa fa-product-hunt"></i><span>Products</span></a><a class="nav-link" href="components"><i class="fa fa-window-maximize"></i><span>Components</span></a><a class="nav-link" href="templates"><i class="fas fa-table"></i><span>Templates</span></a><a class="nav-link" href="pages"><i class="fa fa-newspaper-o"></i><span>Pages</span></a><a class="nav-link" href="languages"><i class="fa fa-language"></i><span>Languages</span></a><a class="nav-link" href="users"><i class="fa fa-users"></i><span>Users</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('profile')}}"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{route('categories')}}"><i class="fa fa-list"></i><span>Categories</span></a>
+                        <a class="nav-link" href="{{route('products')}}"><i class="fa fa-product-hunt"></i><span>Products</span></a>
+                        <a class="nav-link" href="{{route('templates')}}"><i class="fas fa-table"></i><span>Templates</span></a>
+                        <a class="nav-link" href="{{route('pages')}}"><i class="fa fa-newspaper-o"></i><span>Pages</span></a>
+                        @if ($user->userType > 1)
+                        <a class="nav-link" href="{{route('users')}}"><i class="fa fa-users"></i><span>Users</span></a>
+                        @endif
+                    </li>
                     <li class="nav-item"></li>
                     <li class="nav-item"></li>
                 </ul>
@@ -36,9 +44,12 @@
                     <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
                         <ul class="nav navbar-nav flex-nowrap ml-auto">
                             <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">Valerie Luna</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg"></a>
-                                    <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in"><a class="dropdown-item" href="profile"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" id="reset-password" href="forgot-password"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Reset Password</a>
-                                        <div class="dropdown-divider"></div><a class="dropdown-item" id="logout" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">
+                                            @isset($user->email)
+                                            {{$user->email}}
+                                            @endisset</span></a>
+                                    <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in"><a class="dropdown-item" href="{{route('profile')}}"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item" id="logout" href="{{route('logout')}}"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
                                 </div>
                             </li>
@@ -65,7 +76,7 @@
                                     <tbody>
                                         <tr>
                                             @foreach($categories as $category)
-                                            <x-category-record :category="$category" />
+                                            <x-category-record :category="$category" :user="$user"/>
                                             @endforeach
                                         </tr>
                                         <tr></tr>
@@ -86,9 +97,13 @@
                                     @endif
                                 </table>
                             </div>
+                            @if ($user->userType > 1)
                             <div class="row">
-                                <div class="col text-right"><button class="btn btn-primary" data-toggle="modal" data-target="#new-page-modal" type="button">Add New</button></div>
+                                <div class="col text-right">
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#new-page-modal" type="button">Add New</button>
+                                </div>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -104,12 +119,6 @@
                             @csrf
                             <div class="modal-body">
                                 <div class="form-group"><input class="form-control form-control-user" type="text" id="name" aria-describedby="nameHelper" placeholder="Enter category name..." name="name"></div>
-                                <select class="custom-select" id="id_cat">
-                                    <option value="" selected></option>
-                                    @foreach($categories as $category)
-                                    <option value={{$category->id}}>{{$category->name}}</option>
-                                    @endforeach
-                                </select>
                             </div>
                             <div class="modal-footer"><button class="btn btn-primary" type="submit">Add</button></div>
                         </form>
@@ -123,10 +132,10 @@
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-    <script src="assets/js/theme.js"></script>
+    <script src="{{ asset('assets/js/theme.js') }}"></script>
 </body>
 
 </html>

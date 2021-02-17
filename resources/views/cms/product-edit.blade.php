@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Profile - cms</title>
+    <title>Table - cms</title>
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome-all.min.css') }}">
@@ -22,10 +22,10 @@
                 <hr class="sidebar-divider my-0">
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"></li>
-                    <li class="nav-item"><a class="nav-link active" href="{{route('profile')}}"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('profile')}}"><i class="fas fa-user"></i><span>Profile</span></a></li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('categories')}}"><i class="fa fa-list"></i><span>Categories</span></a>
-                        <a class="nav-link" href="{{route('products')}}"><i class="fa fa-product-hunt"></i><span>Products</span></a>
+                        <a class="nav-link active" href="{{route('products')}}"><i class="fa fa-product-hunt"></i><span>Products</span></a>
                         <a class="nav-link" href="{{route('templates')}}"><i class="fas fa-table"></i><span>Templates</span></a>
                         <a class="nav-link" href="{{route('pages')}}"><i class="fa fa-newspaper-o"></i><span>Pages</span></a>
                         @if ($user->userType > 1)
@@ -44,15 +44,10 @@
                     <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
                         <ul class="nav navbar-nav flex-nowrap ml-auto">
                             <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow">
-                                    <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">
-                                        <span class="d-none d-lg-inline mr-2 text-gray-600 small">
-                                            @isset($user->email)
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"> @isset($user->email)
                                             {{$user->email}}
-                                            @endisset
-                                        </span>
-                                    </a>
-                                    <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in"><a class="dropdown-item active" href="{{route('profile')}}"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a>
+                                            @endisset</span></a>
+                                    <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in"><a class="dropdown-item" href="{{route('profile')}}"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" id="logout" href="{{route('logout')}}"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
                                 </div>
@@ -60,49 +55,43 @@
                         </ul>
                     </div>
                 </nav>
+
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Profile</h3>
                     <div class="row mb-3">
                         <div class="col-lg-8 col-lg-12">
-
                             <div class="row">
                                 <div class="col">
                                     <div class="card shadow mb-3">
-                                        <div class="card-header py-3">
-                                            <p class="text-primary m-0 font-weight-bold">User Settings</p>
-                                        </div>
                                         <div class="card-body col-lg-8">
-                                            <div class="form-row">
-                                                <div class="col">
-                                                    <div class="form-group"><label for="username"><strong>Name</strong></label><input class="form-control" type="text" disabled placeholder="{{$user->name}}" name="username"></div>
+                                            <form class="user" method="POST" action="/api/product/{{$product->id}}">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="form-group">
+                                                    <select class="custom-select" name="id_cat" id="id_cat">
+                                                        @foreach($categories as $category)
+                                                        <option name="id_cat" value={{$category->id}}>{{$category->name}}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="col">
-                                                    <div class="form-group"><label for="username"><strong>Email</strong></label><input class="form-control" type="text" disabled placeholder="{{$user->email}}" name="username"></div>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="col">
-                                                    <div class="form-group"><label for="username"><strong>Role</strong></label>
-                                                        @if ($user->userType === 1)
-                                                        <input class="form-control" type="text" disabled placeholder="Operator witryny" name="username">
-                                                        @elseif ($user->userType == 2)
-                                                        Operator produktu<input class="form-control" type="text" disabled placeholder="Operator witryny" name="username">
-                                                        @else
-                                                        Admin<input class="form-control" type="text" disabled placeholder="Operator witryny" name="username">
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                <div class="form-group"><label for="name"><strong>Name</strong></label><input class="form-control form-control-user" type="text" id="name" aria-describedby="nameHelper" value="{{$product->name}}" name="name"></div>
+                                                <div class="form-group"><label for="description"><strong>Description</strong></label><input class="form-control form-control-user" type="text" id="description" aria-describedby="nameHelper" value="{{$product->description}}" name="description"></div>
+                                                <div class="form-group"><label for="price"><strong>Price</strong></label><input class="form-control form-control-user" type="number" step="0.01" min=0 id="price" aria-describedby="nameHelper" value="{{$product->price}}" name="price"></div>
+                                                <div class="form-group"><label for="img_path"><strong>Img Path</strong></label><input class="form-control form-control-user" type="text" id="img_path" aria-describedby="nameHelper" value="{{$product->img_path}}" name="img_path"></div>                                                <button class="btn btn-primary" type="submit">Save</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
+
+
             </div>
+
+
+
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
                     <div class="text-center my-auto copyright"><span>Copyright © cms 2021</span></div>

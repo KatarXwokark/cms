@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Page;
+use App\Models\Template;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Exception;
 
 class PageController extends Controller
@@ -50,30 +52,34 @@ class PageController extends Controller
     public function store(Request $request)
     {
         try {
-            if (!$request->has(['id_temp', 'id_lang', 'name', 'url', 'created_by'])) {
+            if (!$request->has(['id_temp', 'name', 'url', 'created_by'])) {
                 return response()->json([
                     'status' => 500,
                     'message' => 'Incorrect input data'
                 ]);
             }
-            $input = $request->only(['id_temp', 'id_lang', 'name', 'url', 'created_by']);
+            $input = $request->only(['id_temp', 'name', 'url', 'created_by']);
             $result = new Page();
             $result->fill($input);
             $result->last_edited = now();
+            $result->content = Template::find($request->input('id_temp'))->content;
             $result->save();
         } catch (Exception $e) {
             $message = 'Error: ' . $e->getCode() . ', message:' . $e->getMessage();
             error_log($message);
-            return response()->json([
-                'status' => 500,
-                'message' => $message
-            ]);
+            // return response()->json([
+            //     'status' => 500,
+            //     'message' => $message
+            // ]);
+            return back();
         };
 
-        return response()->json([
-            'status' => 200,
-            'data' => $result
-        ]);
+        // return response()->json([
+        //     'status' => 200,
+        //     'data' => $result
+        // ]);
+        // return redirect()->route('page.edit', ['id' => $result->id]);
+        return back();
     }
 
     /**
@@ -107,9 +113,11 @@ class PageController extends Controller
      * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function edit(Page $page)
+    public function edit($id)
     {
-        //
+        $page = Page::find($id);
+        $template = Template::find($page->id_temp);
+        return view('cms.page-edit', ['template' => $template, 'user' => Auth::user(), 'page' => $page]);
     }
 
     /**
@@ -123,7 +131,7 @@ class PageController extends Controller
     {
         try {
             $result = Page::find($id);
-            $result->fill($request->only(['id_temp', 'id_lang', 'name', 'url', 'created_by', 'last_edited']))->save();
+            $result->fill($request->only(['id_temp', 'name', 'url', 'created_by', 'last_edited', 'content']))->save();
         } catch (Exception $e) {
             $message = 'Error: ' . $e->getCode() . ', message:' . $e->getMessage();
             error_log($message);
@@ -156,8 +164,9 @@ class PageController extends Controller
                 'message' => $message
             ]);
         };
-        return response()->json([
-            'status' => 200
-        ]);
+        // return response()->json([
+        //     'status' => 200
+        // ]);
+        return back()->withInput();
     }
 }

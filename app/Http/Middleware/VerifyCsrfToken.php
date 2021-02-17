@@ -22,5 +22,7 @@ class VerifyCsrfToken extends Middleware
         'api/product/*',
         'api/category',
         'api/category/*',
+        'api/user',
+        'api/user/*',
     ];
 }

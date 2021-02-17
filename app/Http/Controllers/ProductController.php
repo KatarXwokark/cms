@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 use Exception;
 
 class ProductController extends Controller
@@ -51,28 +53,30 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         try {
-            if (!$request->has(['id_cat', 'name', 'description', 'price', 'created_by'])) {
+            if (!$request->has(['id_cat', 'name', 'description', 'price', 'created_by', 'img_path'])) {
                 return response()->json([
                     'status' => 500,
                     'message' => 'Incorrect input data'
                 ]);
             }
-            $input = $request->only(['id_cat', 'name', 'description', 'price', 'created_by']);
+            $input = $request->only(['id_cat', 'name', 'description', 'price', 'created_by', 'img_path']);
             $result = new Product();
             $result->fill($input)->save();
         } catch (Exception $e) {
             $message = 'Error: ' . $e->getCode() . ', message:' . $e->getMessage();
             error_log($message);
-            return response()->json([
-                'status' => 500,
-                'message' => $message
-            ]);
+            // return response()->json([
+            //     'status' => 500,
+            //     'message' => $message
+            // ]);
+            return back();
         };
 
-        return response()->json([
-            'status' => 200,
-            'data' => $result
-        ]);
+        // return response()->json([
+        //     'status' => 200,
+        //     'data' => $result
+        // ]);
+        return back();
     }
 
     /**
@@ -106,9 +110,10 @@ class ProductController extends Controller
      * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $page)
+    public function edit($id)
     {
-        //
+        $prodcut = Product::find($id);
+        return view('cms.product-edit', ['product' => $prodcut, 'user' => Auth::user(), 'categories' => Category::all()]);
     }
 
     /**
@@ -122,7 +127,7 @@ class ProductController extends Controller
     {
         try {
             $result = Product::find($id);
-            $result->fill($request->only(['id_cat', 'name', 'description', 'price']))->save();
+            $result->fill($request->only(['id_cat', 'name', 'description', 'price', 'img_path']))->save();
         } catch (Exception $e) {
             $message = 'Error: ' . $e->getCode() . ', message:' . $e->getMessage();
             error_log($message);
@@ -131,10 +136,11 @@ class ProductController extends Controller
                 'message' => $message
             ]);
         };
-        return response()->json([
-            'status' => 200,
-            'data' => $result
-        ]);
+        // return response()->json([
+        //     'status' => 200,
+        //     'data' => $result
+        // ]);
+        return back();
     }
 
     /**
@@ -155,8 +161,9 @@ class ProductController extends Controller
                 'message' => $message
             ]);
         };
-        return response()->json([
-            'status' => 200
-        ]);
+        // return response()->json([
+        //     'status' => 200
+        // ]);
+        return back();
     }
 }
