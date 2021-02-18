@@ -68,7 +68,7 @@
 
         var list = []
         for (x in pageContent) {
-            link = "<a href=\"http://localhost:8000/product/" + pageContent[x].id + "\">" + pageContent[x].name + "<\/a>"
+            link = "<a href=\"http://matmajewski.pl:8001/product/" + pageContent[x].id + "\">" + pageContent[x].name + "<\/a>"
             element = [{
                     "type": "paragraph",
                     "data": {
