@@ -96,6 +96,18 @@
 
 
     <script>
+
+        pageContent = JSON.parse("{{$template->content}}"
+            .replace(/(&lt\;)/g, "<")
+            .replace(/(&gt\;)/g, ">")
+            .replace(/(=&quot\;)/g, "=\\\"")
+            .replace(/(&quot\;\>)/g, "\\\"\>")
+            .replace(/(&quot\;)/g, "\"")
+        )
+        if(pageContent == ""){
+            pageContent = []
+        }
+
         const editor = new EditorJS({
             holderId: 'editorjs',
             readOnly: false,
@@ -112,7 +124,8 @@
                 },
                 alert: Alert,
                 delimiter: Delimiter
-            }
+            },
+            data: pageContent
         });
 
         // $(document).ready(function() {
