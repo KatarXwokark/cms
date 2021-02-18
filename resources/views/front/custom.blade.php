@@ -59,7 +59,13 @@
 
     <script>
         var pageContent
-        pageContent = JSON.parse("{{$page->content}}".replace(/(&quot\;)/g, "\""));
+        pageContent = JSON.parse("{{$page->content}}"
+            .replace(/(&lt\;)/g, "<")
+            .replace(/(&gt\;)/g, ">")
+            .replace(/(=&quot\;)/g, "=\\\"")
+            .replace(/(&quot\;\>)/g, "\\\"\>")
+            .replace(/(&quot\;)/g, "\"")
+        );
 
         const editor = new EditorJS({
             holderId: 'editorjs',
