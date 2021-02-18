@@ -28,7 +28,7 @@
                         <a class="nav-link" href="{{route('products')}}"><i class="fa fa-product-hunt"></i><span>Products</span></a>
                         <a class="nav-link " href="{{route('templates')}}"><i class="fas fa-table"></i><span>Templates</span></a>
                         <a class="nav-link active" href="{{route('pages')}}"><i class="fa fa-newspaper-o"></i><span>Pages</span></a>
-                        @if ($user->userType > 1)
+                        @if ($user->userType > 2)
                         <a class="nav-link" href="{{route('users')}}"><i class="fa fa-users"></i><span>Users</span></a>
                         @endif
                     </li>

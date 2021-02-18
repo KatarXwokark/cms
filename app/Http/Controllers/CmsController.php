@@ -54,7 +54,7 @@ class CmsController extends Controller
 
     public function users()
     {
-        if(Auth::user()->userType > 1)
+        if(Auth::user()->userType > 2)
             return view('cms.users', ['users' => User::all(), 'user' => Auth::user()]);
         else
             return redirect()->route('login');

@@ -19,8 +19,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $editedUser = UserEdit::find($id);
-        return view('cms.user-edit', ['editedUser' => $editedUser, 'user' => Auth::user()]);
+
+        if(Auth::user()->userType > 2){        
+            $editedUser = UserEdit::find($id);
+            return view('cms.user-edit', ['editedUser' => $editedUser, 'user' => Auth::user()]);
+        }
+        else
+            return back();
     }
 
     /**
