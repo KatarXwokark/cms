@@ -53,13 +53,13 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         try {
-            if (!$request->has(['id_cat', 'name', 'description', 'price', 'created_by', 'img_path'])) {
+            if (!$request->has(['id_cat', 'name', 'description', 'price', 'created_by'])) {
                 return response()->json([
                     'status' => 500,
                     'message' => 'Incorrect input data'
                 ]);
             }
-            $input = $request->only(['id_cat', 'name', 'description', 'price', 'created_by', 'img_path']);
+            $input = $request->only(['id_cat', 'name', 'description', 'price', 'created_by']);
             $result = new Product();
             $result->fill($input)->save();
         } catch (Exception $e) {
@@ -131,10 +131,11 @@ class ProductController extends Controller
         } catch (Exception $e) {
             $message = 'Error: ' . $e->getCode() . ', message:' . $e->getMessage();
             error_log($message);
-            return response()->json([
-                'status' => 500,
-                'message' => $message
-            ]);
+            // return response()->json([
+            //     'status' => 500,
+            //     'message' => $message
+            // ]);
+            return back();
         };
         // return response()->json([
         //     'status' => 200,

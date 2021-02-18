@@ -116,12 +116,13 @@
                 .replace(/(&quot\;\>)/g, "\\\"\>")
                 .replace(/(&quot\;)/g, "\"")
             )
-        }
-        else {
+        } else {
             pageContent = JSON.parse("{{$template->content}}"
-                .replace(/(&quot\;)/g, "\"")
                 .replace(/(&lt\;)/g, "<")
                 .replace(/(&gt\;)/g, ">")
+                .replace(/(=&quot\;)/g, "=\\\"")
+                .replace(/(&quot\;\>)/g, "\\\"\>")
+                .replace(/(&quot\;)/g, "\"")
             )
         }
 

@@ -64,10 +64,11 @@ class TemplateController extends Controller
         } catch (Exception $e) {
             $message = 'Error: ' . $e->getCode() . ', message:' . $e->getMessage();
             error_log($message);
-            return response()->json([
-                'status' => 500,
-                'message' => $message
-            ]);
+            // return response()->json([
+            //     'status' => 500,
+            //     'message' => $message
+            // ]);
+            return back();
         };
 
         // return response()->json([
@@ -75,7 +76,7 @@ class TemplateController extends Controller
         //     'data' => $result
         // ]);
         //return redirect()->route('template.edit', ['id' => $result->id]);
-        back();
+        return back();
     }
 
     /**
@@ -156,10 +157,11 @@ class TemplateController extends Controller
         } catch (Exception $e) {
             $message = 'Error: ' . $e->getCode() . ', message:' . $e->getMessage();
             error_log($message);
-            return response()->json([
-                'status' => 500,
-                'message' => $message
-            ]);
+            // return response()->json([
+            //     'status' => 500,
+            //     'message' => $message
+            // ]);
+            return back();
         };
         // return response()->json([
         //     'status' => 200

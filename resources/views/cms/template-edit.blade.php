@@ -112,15 +112,6 @@
                 },
                 alert: Alert,
                 delimiter: Delimiter
-            },
-            data: {
-                blocks: [{
-                    type: "image",
-                    data: {
-                        url: "https://images.pexels.com/photos/617278/pexels-photo-617278.jpeg",
-                        caption: "example-caption"
-                    }
-                }]
             }
         });
 
