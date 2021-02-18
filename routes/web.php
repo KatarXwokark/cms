@@ -96,7 +96,7 @@ $pages = Page::all();
 foreach ($pages as $page) {
     Route::view($page->url, 'front.custom', ['page' => Page::find($page->id), 'categories' => Category::all()]);
 }
-Route::get('/category/{id}',  [FrontController::class, 'category']);
+Route::get('/category/{id}',  [FrontController::class, 'category'])->name('category');
 Route::get('/product/{id}',  [FrontController::class, 'product']);
 
 

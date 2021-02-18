@@ -27,7 +27,7 @@
                         <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in">
                             @foreach($categories as $category)
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{route('profile')}}">
+                            <a class="dropdown-item" href="{{route('category', ['id' => $category->id])}}">
                                 &nbsp;{{$category->name}}
                             </a>
                             @endforeach
